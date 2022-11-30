@@ -8,3 +8,16 @@ fun String.asFileStream(): InputStream = App::class.java.getResourceAsStream(thi
 fun String.readFileLines(): List<String> = this.asFileStream().bufferedReader().readLines()
 
 fun String.readFile(): String = this.asFileStream().bufferedReader().readText()
+
+fun printSolution(header: String, solution: Solution) {
+    println(
+        """
+            ########################
+            $header
+            ########################
+            
+        """.trimIndent()
+    )
+    solution()
+    println()
+}
