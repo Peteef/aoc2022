@@ -1,11 +1,11 @@
 package io.peteef.aoc
 
-import io.peteef.aoc.solutions.day1
+import io.peteef.aoc.solutions.DAY1
 
 object App {
 
-    private val SOLUTIONS: Map<String, Solution>  = mapOf(
-        day1()
+    private val SOLUTIONS: IterableSolutions = mapOf(
+        DAY1
     )
 
     @JvmStatic
