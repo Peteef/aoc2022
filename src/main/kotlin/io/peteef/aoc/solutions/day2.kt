@@ -26,67 +26,66 @@ private fun solve() {
     println("Sum of points after changes is $alterSum")
 }
 
-private fun toMoves(game: String): Pair<Move, Move> {
-    val split = game.split(" ")
-    return split[0].toMove() to split[1].toMove()
-}
+private fun toMoves(game: String): Pair<Move, Move> =
+    game.split(" ")
+        .let { it[0].toMove() to it[1].toMove() }
 
-private fun String.toMove(): Move = when(this) {
+private fun String.toMove(): Move = when (this) {
     "A", "X" -> ROCK
     "B", "Y" -> PAPER
     "C", "Z" -> SCISSORS
     else -> throw IllegalArgumentException("Illegal input $this")
 }
 
-private fun calculateScore(enemy: Move, me: Move): Int {
-    val result = when(enemy) {
-        ROCK -> when(me) {
+private fun calculateScore(enemy: Move, me: Move): Int =
+    when (enemy) {
+        ROCK -> when (me) {
             ROCK -> DRAW
             PAPER -> WIN
             SCISSORS -> LOSE
         }
-        PAPER -> when(me) {
+
+        PAPER -> when (me) {
             ROCK -> LOSE
             PAPER -> DRAW
             SCISSORS -> WIN
         }
-        SCISSORS -> when(me) {
+
+        SCISSORS -> when (me) {
             ROCK -> WIN
             PAPER -> LOSE
             SCISSORS -> DRAW
         }
-    }
+    }.let { it.points + me.points }
 
-    return result.points + me.points
-}
-
-private fun String.toResult(): Result = when(this) {
+private fun String.toResult(): Result = when (this) {
     "X" -> LOSE
     "Y" -> DRAW
     "Z" -> WIN
     else -> throw IllegalArgumentException("Illegal input $this")
 }
 
-private fun toMoveAndResult(game: String): Pair<Move, Result> {
-    val split = game.split(" ")
-    return split[0].toMove() to split[1].toResult()
-}
+private fun toMoveAndResult(game: String): Pair<Move, Result> =
+    game.split(" ")
+        .let { it[0].toMove() to it[1].toResult() }
 
 private fun calculateMove(enemy: Move, result: Result): Move =
-    when(enemy) {
-        ROCK -> when(result) {
+    when (enemy) {
+        ROCK -> when (result) {
             LOSE -> SCISSORS
             DRAW -> ROCK
             WIN -> PAPER
         }
-        PAPER -> when(result) {
+
+        PAPER -> when (result) {
             LOSE -> ROCK
             DRAW -> PAPER
             WIN -> SCISSORS
         }
-        SCISSORS -> when(result) {
+
+        SCISSORS -> when (result) {
             LOSE -> PAPER
             DRAW -> SCISSORS
             WIN -> ROCK
+        }
     }
-}

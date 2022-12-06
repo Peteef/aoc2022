@@ -28,14 +28,13 @@ private fun solve() {
     println("Sum of group priorities is $sumOfGroupPriorities")
 }
 
-private fun toBackpack(items: String): Backpack {
-    val size = items.length
-    assert(size % 2 == 0) { "Items number should be even!" }
-    return Backpack(
-        items.substring(0 until size / 2).toList(),
-        items.substring(size / 2 until size).toList()
-    )
-}
+private fun toBackpack(items: String): Backpack =
+    items.length
+        .apply { assert(this % 2 == 0) { "Items number should be even!" } }
+        .let { Backpack(
+            items.substring(0 until it / 2).toList(),
+            items.substring(it / 2 until it).toList()
+        ) }
 
 private fun Backpack.findShareItem(): Item =
     this.first.find { this.second.contains(it) } ?: '-'
@@ -43,10 +42,8 @@ private fun Backpack.findShareItem(): Item =
 private fun findSharedItem(group: Group): Item =
     group.first.find { group.second.contains(it) && group.third.contains(it) } ?: '-'
 
-private fun Item.calculatePriority(): Int {
-    return when {
-        isLowerCase() -> this.minus(96).code
-        isUpperCase() -> this.minus(38).code
-        else -> 0
-    }
+private fun Item.calculatePriority(): Int = when {
+    isLowerCase() -> this.minus(96).code
+    isUpperCase() -> this.minus(38).code
+    else -> 0
 }
