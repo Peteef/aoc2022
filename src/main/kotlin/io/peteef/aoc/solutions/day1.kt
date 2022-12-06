@@ -9,7 +9,7 @@ private fun solve() {
     val rawInput = "/input/input_1_1.dat".readFile()
 
     val calories = rawInput.split("\n\n")
-        .map { it.split("\n").filter(String::isNotEmpty).sumOf(String::toInt) }
+        .map { it.lines().filter(String::isNotEmpty).sumOf(String::toInt) }
 
     val max = calories.max()
     println("Max calories is $max")
